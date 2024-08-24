@@ -8,26 +8,23 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
 
-  useEffect(() => {
-    async function fetchArticles() {
-      try {
-        setLoading(true);
-        // 2. Використовуємо HTTP-функцію
-        const data = await fetchImages("react");
-        setImages(data);
-      } catch (error) {
-        setError(true);
-      } finally {
-        setLoading(false);
-      }
+  const handleSearch = async (image) => {
+    try {
+      setImages([]);
+      setError(false);
+      setLoading(true);
+      const data = await fetchImages(image);
+      setImages(data);
+    } catch (error) {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
-
-    fetchArticles();
-  }, []);
+  };
 
   return (
     <>
-      <SearchBar />
+      <SearchBar onSearch={handleSearch} />
       <ImageGallery items={images} />
     </>
   );

@@ -9,6 +9,5 @@ export const fetchImages = async (photo) => {
     },
   });
 
-  // Return the relevant results
   return response.data.results;
 };
